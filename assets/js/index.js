@@ -47,7 +47,7 @@ Diego`,
         وسأبقى أحبكِ حتى يعود القمر إلى حضن السماء`,
     maxPetalsMobile: 50,
     petalIntervalMobile: 400,
-    youtubeId: "gTQ8CUtD79o"
+    youtubeId: "sElE_BfQ67s"
 };
 
 function init() {
@@ -159,19 +159,9 @@ function init() {
         }
     }
 
-    const RELOAD_KEY = 'carta_reload_guard_ts';
-    function safeReload() {
-        const t = Date.now();
-        const prev = parseInt(localStorage.getItem(RELOAD_KEY) || '0', 10);
-        if (t - prev < 10000) return;
-        localStorage.setItem(RELOAD_KEY, String(t));
-        location.reload();
-    }
-    window.onerror = function () { safeReload(); return false; };
-
     function isInAppBrowser() {
         const ua = (navigator.userAgent || "").toLowerCase();
-        return /instagram|fbav|fban|messenger|line|tiktok|twitter|snapchat/.test(ua);
+        return /instagram|fbav|fban|messenger|line|twitter|snapchat/.test(ua);
     }
 
     function getLinks(videoId) {
@@ -192,21 +182,9 @@ function init() {
         const playSection = document.querySelector('.play-section.compact');
         if (!playSection) return;
 
-        if (isInAppBrowser()) {
-            const { watchUrl } = getLinks(CONFIG.youtubeId);
+        const { embedUrl, watchUrl } = getLinks(CONFIG.youtubeId);
 
-            if (window.event && window.event.type === 'click') {
-                window.open(watchUrl, '_blank');
-            } else {
-                const hint = playSection.querySelector('.play-hint');
-                const title = playSection.querySelector('.play-title');
-                if (hint) hint.textContent = "افتح في يوتيوب (تجربة أفضل)";
-                if (title) title.textContent = "♪ اضغط للاستماع ♪";
-            }
-            return;
-        }
-
-        const { embedUrl } = getLinks(CONFIG.youtubeId);
+        // Siempre intentar iframe primero (incluso en TikTok/Instagram)
         const iframe = document.createElement('iframe');
         iframe.src = embedUrl;
         iframe.title = "أغنيتنا";
@@ -217,6 +195,7 @@ function init() {
         iframe.style.border = "none";
         iframe.style.borderRadius = "8px";
         iframe.setAttribute('referrerpolicy', 'origin-when-cross-origin');
+        iframe.setAttribute('loading', 'lazy');
 
         playSection.innerHTML = '';
 
@@ -229,20 +208,19 @@ function init() {
 
         container.appendChild(iframe);
 
-        const { watchUrl } = getLinks(CONFIG.youtubeId);
+        // Fallback siempre visible para apps embebidas (TikTok, Instagram, etc.)
         const fallbackDiv = document.createElement('div');
         fallbackDiv.className = 'yt-fallback-container';
         fallbackDiv.innerHTML = `
-            <a href="${watchUrl}" target="_blank" class="yt-fallback-link">
-                <span class="yt-icon">📺</span> إذا لم يعمل، اضغط هنا
+            <a href="${watchUrl}" target="_blank" rel="noopener" class="yt-fallback-link">
+                <span class="yt-icon">📺</span> افتح الأغنية في يوتيوب
             </a>
         `;
         container.appendChild(fallbackDiv);
 
         playSection.appendChild(container);
-
         playSection.style.padding = "0";
-        playSection.style.background = "black";
+        playSection.style.background = "#000";
         playSection.style.display = "block";
         playSection.style.height = "auto";
     }
@@ -256,7 +234,7 @@ function init() {
             <button class="play-button small" id="playButton" aria-label="تشغيل الأغنية">
                 <span>▶</span>
             </button>
-            <div class="play-hint">"Perfect" - Ed Sheeran</div>
+            <div class="play-hint">"Someone You Loved"</div>
         `;
         playSection.style.padding = "";
         playSection.style.background = "";

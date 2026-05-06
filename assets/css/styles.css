@@ -1016,7 +1016,45 @@ h1 .spark {
 .play-section.compact .play-hint,
 .play-section.compact .play-button {
   display: none;
-  /* Ocultar elementos viejos si quedan */
+}
+
+/* Fallback YouTube - visible en apps embebidas (TikTok, etc.) */
+.yt-fallback-container {
+  background: #1a1a1a;
+  padding: 10px 12px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.yt-fallback-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: #ff0000;
+  transition: all .2s ease;
+}
+
+.yt-fallback-link:active {
+  background: #cc0000;
+  transform: scale(.96);
+}
+
+.yt-fallback-link .yt-icon {
+  font-size: 18px;
+}
+
+@media (max-width: 390px) {
+  .yt-fallback-link {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
 }
 
 
