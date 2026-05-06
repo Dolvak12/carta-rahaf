@@ -110,20 +110,16 @@ body {
 .petal {
   position: absolute;
   width: 15px;
-  /* Un poco más grandes */
   height: 12px;
   background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, .3), transparent 50%),
     linear-gradient(135deg, #b0002a, #ff2b5a);
-  /* Rojo más intenso y "terciopelo" */
   border-radius: 15px 0 15px 50px;
-  /* Forma de pétalo de rosa más natural */
-  transform: rotate(25deg);
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .2));
+  transform: rotate(25deg) translateZ(0);
   opacity: 0;
   animation: fall linear forwards;
   z-index: 100;
-  /* Asegurar que se vean */
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
 .petal:nth-child(2n) {
@@ -156,6 +152,7 @@ body {
   z-index: 100;
   pointer-events: none;
   text-shadow: 0 0 5px rgba(255, 43, 90, 0.4);
+  will-change: transform, opacity;
 }
 
 .heart-particle.shiny {
@@ -245,6 +242,12 @@ body {
     text-align: center;
   }
 
+  /* Reducir gradientes en móvil para rendimiento */
+  body {
+    background: linear-gradient(165deg, #12040a, #2a0713);
+    background-attachment: scroll;
+  }
+
   .tag {
     justify-content: center;
     margin: 0 auto;
@@ -262,24 +265,10 @@ body {
     padding: 0 8px;
   }
 
-  /* Animación cariñosa para móvil: respiración suave */
-  @keyframes cardBreath {
-
-    0%,
-    100% {
-      transform: translateY(0) scale(1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    50% {
-      transform: translateY(-2px) scale(1.005);
-      box-shadow: 0 15px 40px rgba(176, 0, 42, 0.25);
-    }
-  }
-
   .card {
     padding-bottom: 24px;
-    animation: cardBreath 5s ease-in-out infinite;
+    animation: none;
+    backdrop-filter: none;
   }
 
   .actions {
@@ -317,6 +306,16 @@ body {
   .photo-container {
     width: 140px;
     height: 140px;
+    animation: none;
+  }
+
+  .photo-container::before {
+    animation: none;
+    opacity: 0.4;
+  }
+
+  .floating-flower {
+    display: none;
   }
 
   .play-section {
@@ -1146,13 +1145,11 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Prevención de rebote en iOS */
+/* Prevención de rebote en iOS — sin position:fixed (rompe WebViews) */
 body,
 html {
-  height: 100%;
   width: 100%;
   overflow-x: hidden;
-  position: fixed;
 }
 
 /* Flor decorativa flotante */

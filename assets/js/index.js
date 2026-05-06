@@ -50,12 +50,14 @@ function init() {
     // =========================
     const intro = document.getElementById('intro-container');
     if (intro) {
+        const mobile = window.innerWidth <= 768;
+        const introDelay = mobile ? 2000 : 6000;
         setTimeout(() => {
             intro.classList.add('fade-out');
             setTimeout(() => {
                 intro.style.display = 'none';
-            }, 1500);
-        }, 6000);
+            }, mobile ? 800 : 1500);
+        }, introDelay);
     }
 
     const toNameEl = document.getElementById("toName");
