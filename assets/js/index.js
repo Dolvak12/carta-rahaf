@@ -22,6 +22,26 @@ const CONFIG = {
 
 مع كل حبي،
 Diego`,
+    poemText:
+        `عيناكِ كالبحر في سكون المساء
+        وفيكِ يذوب القلب دون عناء
+        أنتِ القصيدة حين تشرق شمسها
+        وأنتِ الحكاية في فم الغرباء
+
+        أحبكِ همسًا، جهرةً، وسريرةً
+        وفي كل نبضٍ أنتِ فيه دوائي
+        فإن غبتِ يومًا غاب طعم حياتي
+        وإن عدتِ عاد العمر بعد شتاء
+
+        كأنكِ وردٌ في الصحارى نضارةً
+        وكالنور في ليلٍ تلاشى ضيائي
+        أقمتكِ في عينيَّ قصرًا من الهوى
+        وجنّتكِ الكبرى بكل رجاء
+
+        فمن أنتِ؟ أنتِ الروح في جسدي أنا
+        ومن أنتِ؟ أنتِ الحب دون رياء
+        رهفٌ، ويا أجمل اسمٍ نطقتُ به
+        سأبقى أحبكِ آخر العمر، حتى السماء`,
     maxPetalsMobile: 50,
     petalIntervalMobile: 400,
     youtubeId: "gTQ8CUtD79o"
@@ -47,9 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const profilePhoto = document.getElementById("profilePhoto");
     const photoPlaceholder = document.getElementById("photoPlaceholder");
 
+    const poemEl = document.getElementById("poemText");
+
     if (toNameEl) toNameEl.textContent = CONFIG.toName;
     if (toNamePhotoEl) toNamePhotoEl.textContent = CONFIG.toNamePhoto;
     if (signatureEl) signatureEl.textContent = "— " + CONFIG.signature;
+    if (poemEl) poemEl.textContent = CONFIG.poemText;
 
     function showUserPhoto() {
         if (photoPlaceholder) photoPlaceholder.style.display = 'none';

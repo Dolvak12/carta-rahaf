@@ -566,6 +566,103 @@ h1 .spark {
   padding: 0 12px;
 }
 
+/* Poema - tarjeta glass */
+.poem-card {
+  width: 100%;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 210, 122, .2);
+  border-radius: 18px;
+  padding: 16px 20px;
+  margin-top: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .2);
+  backdrop-filter: blur(6px);
+  position: relative;
+  overflow: hidden;
+}
+
+.poem-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(350px 200px at 80% 20%, rgba(255, 43, 90, .12), transparent 70%),
+              radial-gradient(350px 200px at 20% 80%, rgba(255, 210, 122, .08), transparent 70%);
+  pointer-events: none;
+}
+
+.poem-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.poem-icon {
+  font-size: 18px;
+}
+
+.poem-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: .3px;
+}
+
+.poem-body {
+  font-family: 'Scheherazade New', 'Arabic Typesetting', 'Traditional Arabic', serif;
+  font-size: 16px;
+  line-height: 2.1;
+  color: rgba(255, 247, 251, .92);
+  direction: rtl;
+  text-align: right;
+  white-space: pre-line;
+  padding: 0 4px;
+}
+
+.poem-footer {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 210, 122, .6);
+  margin-top: 12px;
+  font-style: italic;
+  border-top: 1px solid rgba(255, 255, 255, .06);
+  padding-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .poem-card {
+    padding: 14px 14px;
+    border-radius: 16px;
+  }
+
+  .poem-body {
+    font-size: 15px;
+    line-height: 2.0;
+    padding: 0;
+  }
+
+  .poem-title {
+    font-size: 15px;
+  }
+
+  .poem-footer {
+    font-size: 12px;
+    margin-top: 10px;
+    padding-top: 8px;
+  }
+}
+
+@media (max-width: 390px) {
+  .poem-card {
+    padding: 12px 10px;
+  }
+
+  .poem-body {
+    font-size: 14px;
+    line-height: 1.9;
+  }
+}
+
 .actions {
   display: flex;
   gap: 14px;
